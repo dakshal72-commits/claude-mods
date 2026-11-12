@@ -7,15 +7,23 @@ const URGENT = 80
 const levelOf = (percent: number): 0 | 1 | 2 =>
   percent >= URGENT ? 2 : percent >= WARN ? 1 : 0
 
+const HANDOFF =
+  'End the reply with a handoff prompt for the new chat, in one fenced code block the user can copy whole. ' +
+  'Write it to a chat that knows nothing of this one, addressed to Claude, and complete enough to carry on without this chat: ' +
+  'the goal; what is done and the current state; the exact next steps; ' +
+  'the files, folders, branches, PRs and tickets involved, by full path or URL; ' +
+  'which skills to load first; the decisions made and the preferences or corrections the user gave; ' +
+  'and anything unfinished, unverified or known to be broken. ' +
+  'Leave out passwords, keys and tokens. Outside the block, say only that it is ready to paste.'
+
 const noteFor = (level: 1 | 2, percent: number): string =>
   level === 2
     ? `[fresh-chat-nudge] This chat has used ${percent}% of its context window. ` +
       'Open your reply with one plain line telling the user it is now better to start a new chat. ' +
-      'Then answer their message, and end the reply with a short handoff summary they can paste into the new chat: ' +
-      'what was being worked on, what is done, what is left, and the files, branches or tickets involved.'
+      `Then answer their message. ${HANDOFF}`
     : `[fresh-chat-nudge] This chat has used ${percent}% of its context window. ` +
-      'In one plain line, tell the user this is a good point to start a new chat soon, ' +
-      'and offer to write a short handoff summary for it. Then answer their message as normal. Say this once only.'
+      'Open your reply with one plain line telling the user this is a good point to start a new chat soon. ' +
+      `Then answer their message as normal. ${HANDOFF}`
 
 export const register: Register = on => {
   // The highest level the person has been shown, and the model has been told.

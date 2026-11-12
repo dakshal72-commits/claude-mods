@@ -6,8 +6,9 @@ Two mods for Claude Code.
 
 Watches how full the chat's context window is and says when starting a new chat is the better move.
 
-- At 60% full: a toast and a status line, and Claude mentions it once and offers a handoff summary.
-- At 80% full: Claude opens its next reply by saying to start a new chat, and ends it with a handoff summary to paste into the new one.
+- At 60% full: a toast and a status line, and Claude says a new chat soon is a good idea.
+- At 80% full: Claude opens its next reply by saying to start a new chat now.
+- Both times the reply ends with a handoff prompt in one copyable block: the goal, what is done, the next steps, the files, branches and tickets involved, the skills to load, and the decisions made, so the new chat can carry on.
 - Resets after a compact or clear.
 
 ## subagent-router

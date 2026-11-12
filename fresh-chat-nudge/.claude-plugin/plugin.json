@@ -1,5 +1,5 @@
 {
   "name": "fresh-chat-nudge",
-  "version": "0.1.0",
-  "description": "Says when the chat has used so much context that starting a new chat is the better move, and has Claude offer a handoff summary."
+  "version": "0.1.1",
+  "description": "Says when the chat has used so much context that starting a new chat is the better move, and has Claude write a handoff prompt for it."
 }
