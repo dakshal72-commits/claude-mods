@@ -1,0 +1,5 @@
+{
+  "name": "effort-advisor",
+  "version": "0.1.0",
+  "description": "Asks to lower the effort for quick prompts and raise it for hard ones, one prompt at a time, to save usage."
+}

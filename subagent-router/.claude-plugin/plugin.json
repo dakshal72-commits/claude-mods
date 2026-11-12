@@ -1,5 +1,5 @@
 {
   "name": "subagent-router",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Has Claude hand lookups (SKU info, restock data and the like) to subagents on Haiku, Sonnet or Opus by difficulty, never Fable."
 }

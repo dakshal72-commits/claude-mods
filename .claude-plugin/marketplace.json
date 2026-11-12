@@ -1,8 +1,20 @@
 {
   "name": "claude-mods",
-  "owner": { "name": "dakshal72-commits" },
+  "owner": {
+    "name": "dakshal72-commits"
+  },
   "plugins": [
-    { "name": "fresh-chat-nudge", "source": "./fresh-chat-nudge" },
-    { "name": "subagent-router", "source": "./subagent-router" }
+    {
+      "name": "fresh-chat-nudge",
+      "source": "./fresh-chat-nudge"
+    },
+    {
+      "name": "subagent-router",
+      "source": "./subagent-router"
+    },
+    {
+      "name": "effort-advisor",
+      "source": "./effort-advisor"
+    }
   ]
 }

@@ -1,7 +1,7 @@
 import type { Register } from 'claude-code'
 
 // Percent of the context window used at which the mod speaks up.
-const WARN = 60
+const WARN = 50
 const URGENT = 80
 
 const levelOf = (percent: number): 0 | 1 | 2 =>
