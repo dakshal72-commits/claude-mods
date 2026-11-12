@@ -10,6 +10,7 @@ Watches how full the chat's context window is and says when starting a new chat 
 - At 80% full: Claude opens its next reply by saying to start a new chat now.
 - Both times the reply ends with a handoff prompt in one copyable block: the goal, what is done, the next steps, the files, branches and tickets involved, the skills to load, and the decisions made, so the new chat can carry on.
 - Resets after a compact or clear.
+- `/handoff` writes the same handoff prompt whenever you ask, at any context level.
 
 ## subagent-router
 

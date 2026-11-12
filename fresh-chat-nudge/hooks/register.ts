@@ -7,14 +7,18 @@ const URGENT = 80
 const levelOf = (percent: number): 0 | 1 | 2 =>
   percent >= URGENT ? 2 : percent >= WARN ? 1 : 0
 
-const HANDOFF =
-  'End the reply with a handoff prompt for the new chat, in one fenced code block the user can copy whole. ' +
+const HANDOFF_BLOCK =
+  'a handoff prompt for the new chat, in one fenced code block the user can copy whole. ' +
   'Write it to a chat that knows nothing of this one, addressed to Claude, and complete enough to carry on without this chat: ' +
   'the goal; what is done and the current state; the exact next steps; ' +
   'the files, folders, branches, PRs and tickets involved, by full path or URL; ' +
   'which skills to load first; the decisions made and the preferences or corrections the user gave; ' +
   'and anything unfinished, unverified or known to be broken. ' +
   'Leave out passwords, keys and tokens. Outside the block, say only that it is ready to paste.'
+
+const HANDOFF = `End the reply with ${HANDOFF_BLOCK}`
+
+const HANDOFF_NOW = `I want to continue this work in a new chat. Write ${HANDOFF_BLOCK}`
 
 const noteFor = (level: 1 | 2, percent: number): string =>
   level === 2
@@ -29,6 +33,22 @@ export const register: Register = on => {
   // The highest level the person has been shown, and the model has been told.
   let shown: 0 | 1 | 2 = 0
   let told: 0 | 1 | 2 = 0
+
+  on('session.start', async ($, e, next) => {
+    await $.command.register({
+      name: 'handoff',
+      description: 'Write a handoff prompt to continue this work in a new chat',
+    })
+
+    return next(e)
+  })
+
+  on('command.run', { command: 'handoff' }, $ => {
+    // Runs once the session is idle; not awaited, so the command returns first.
+    void $.prompt.submit({ text: HANDOFF_NOW, asUser: true })
+
+    return { text: 'Writing a handoff prompt for a new chat.' }
+  })
 
   on('turn.complete', async ($, e, next) => {
     if (e.agentId !== undefined) {
