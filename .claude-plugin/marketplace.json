@@ -1,0 +1,8 @@
+{
+  "name": "claude-mods",
+  "owner": { "name": "dakshal72-commits" },
+  "plugins": [
+    { "name": "fresh-chat-nudge", "source": "./fresh-chat-nudge" },
+    { "name": "subagent-router", "source": "./subagent-router" }
+  ]
+}
