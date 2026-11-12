@@ -44,8 +44,22 @@ export const register: Register = on => {
   })
 
   on('command.run', { command: 'handoff' }, $ => {
-    // Runs once the session is idle; not awaited, so the command returns first.
-    void $.prompt.submit({ text: HANDOFF_NOW, asUser: true })
+    // A prompt cannot be submitted from inside the command itself (it would wait
+    // on the command's own turn), so it goes out from a timer just after.
+    $.clock.after(250, () => {
+      $.prompt.submit({ text: HANDOFF_NOW, asUser: true }).then(
+        sent => {
+          if (sent.drop !== undefined) {
+            $.ui.toast(`Handoff not started: ${sent.drop}`, { timeoutMs: 10000 })
+          }
+        },
+        () => {
+          $.ui.toast('Handoff could not start. Type "write a handoff prompt" instead.', {
+            timeoutMs: 10000,
+          })
+        },
+      )
+    })
 
     return { text: 'Writing a handoff prompt for a new chat.' }
   })
